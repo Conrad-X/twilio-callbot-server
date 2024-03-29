@@ -41,7 +41,7 @@ const removeCaller = async (req, res, next) => {
 
 const getCallerList = async (req, res, next) => {
     const { accountId } = req.body;
-    console.log(accountId);
+    console.log("caller list accout id",accountId);
     try {
         const callers = await Caller.findAll({
             where: {
@@ -56,8 +56,47 @@ const getCallerList = async (req, res, next) => {
     }
 }
 
+const getCallerListPaginated = async (req, res, next) => {
+    console.log("getCallerListPaginated called")
+    console.log(req.body);
+    const { accountId} = req.body;
+    // { page, limit } = req.query;
+    const limit = parseInt(req.query.limit);
+    const page = parseInt(req.query.page);
+    // console.log(accountId);
+    console.log("page",page,"limit", limit);
+    try {
+        const callers = await Caller.findAll({
+            where: {
+              accountId: accountId,
+            },
+            offset: (page - 1) * limit,
+            limit:limit,
+        });
+
+        const count = await Caller.count({
+            where: {
+              accountId: accountId,
+            },
+        });
+
+        total=1
+
+        if(count>0){
+            total = Math.ceil(count / limit);
+        }
+
+        res.status(200).json({count:total,callers:callers})
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({ error: "Something went wrong" });
+    }
+
+}
+
 module.exports = {
     addCaller,
     removeCaller,
     getCallerList,
+    getCallerListPaginated,
 }

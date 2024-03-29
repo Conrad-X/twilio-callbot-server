@@ -3,6 +3,13 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const authMiddleware = (req, res, next) => {
+
+    console.log("auth middleware")
+    // req.body.accountId = "029ce192-35ec-4c96-af05-0f36bce1fef4";
+    // // req.body.accountId = "029ce192-35ec-4c96-af05-0f36bce1fef4";
+    // console.log(req.body);
+    // next();
+  
     const authorizationHeader = req.header("Authorization")
 
     if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
@@ -20,6 +27,7 @@ const authMiddleware = (req, res, next) => {
 
     try {
         const { accountId } = jwt.verify(token, process.env.JWT_SECRET_KEY_FOR_LOGIN);
+        // console.log("account id", accountId)
         req.body.accountId = accountId;
         next();
       } catch (err) {

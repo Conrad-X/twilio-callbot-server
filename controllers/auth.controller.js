@@ -33,13 +33,13 @@ const signUp = async (req, res, next) => {
       hashPassword
     );
 
-    try {
-      await transporter.sendMail(getMailConfigurations(email, token));
-    } catch (err) {
-      return res
-        .status(400)
-        .json({ error: "Unable to send email", field: "email" });
-    }
+    // try {
+    //   await transporter.sendMail(getMailConfigurations(email, token));
+    // } catch (err) {
+    //   return res
+    //     .status(400)
+    //     .json({ error: "Unable to send email", field: "email" });
+    // }
 
     await user.save();
     return res.status(200).json({ message: "User added and email sent" });
