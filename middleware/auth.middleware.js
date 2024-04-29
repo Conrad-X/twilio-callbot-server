@@ -4,11 +4,8 @@ require("dotenv").config();
 
 const authMiddleware = (req, res, next) => {
 
-    console.log("auth middleware")
-    // req.body.accountId = "029ce192-35ec-4c96-af05-0f36bce1fef4";
-    // // req.body.accountId = "029ce192-35ec-4c96-af05-0f36bce1fef4";
-    // console.log(req.body);
-    // next();
+    // console.log("auth middleware")
+    
   
     const authorizationHeader = req.header("Authorization")
 

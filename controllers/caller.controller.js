@@ -29,7 +29,7 @@ const addCaller = async (req, res, next) => {
 
     return res.status(200).json(newCaller);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.status(400).json({ error: "Something went wrong" });
   }
 };
@@ -37,7 +37,7 @@ const addCaller = async (req, res, next) => {
 const updateCaller = async (req, res, next) => {
   const { id, name, description, phoneNumber } = req.body;
 
-  console.log("updateCaller", id, name, description, phoneNumber);
+  // console.log("updateCaller", id, name, description, phoneNumber);
 
   if (!name || !phoneNumber)
     return res
@@ -65,7 +65,7 @@ const updateCaller = async (req, res, next) => {
 
     return res.status(200).send("Updated");
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.status(400).json({ error: "Something went wrong" });
   }
 };
@@ -77,14 +77,14 @@ const removeCaller = async (req, res, next) => {
     await Caller.destroy({ where: { id } });
     return res.status(200).send("Deleted");
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.status(400).json({ error: "Something went wrong" });
   }
 };
 
 const getCallerList = async (req, res, next) => {
   const { accountId } = req.body;
-  console.log("caller list accout id", accountId);
+  // console.log("caller list accout id", accountId);
   try {
     const callers = await Caller.findAll({
       where: {
@@ -94,20 +94,20 @@ const getCallerList = async (req, res, next) => {
 
     res.status(200).json(callers);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.status(400).json({ error: "Something went wrong" });
   }
 };
 
 const getCallerListPaginated = async (req, res, next) => {
-  console.log("getCallerListPaginated called");
-  console.log(req.body);
+  // console.log("getCallerListPaginated called");
+  // console.log(req.body);
   const { accountId } = req.body;
 
   const limit = parseInt(req.query.limit);
   const page = parseInt(req.query.page);
 
-  console.log("page", page, "limit", limit);
+  // console.log("page", page, "limit", limit);
   try {
     const callers = await Caller.findAll({
       where: {
@@ -131,7 +131,7 @@ const getCallerListPaginated = async (req, res, next) => {
 
     res.status(200).json({ count: total, callers: callers });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     return res.status(400).json({ error: "Something went wrong" });
   }
 };
