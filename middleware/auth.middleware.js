@@ -3,6 +3,10 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const authMiddleware = (req, res, next) => {
+
+    // console.log("auth middleware")
+    
+  
     const authorizationHeader = req.header("Authorization")
 
     if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
@@ -20,6 +24,7 @@ const authMiddleware = (req, res, next) => {
 
     try {
         const { accountId } = jwt.verify(token, process.env.JWT_SECRET_KEY_FOR_LOGIN);
+        // console.log("account id", accountId)
         req.body.accountId = accountId;
         next();
       } catch (err) {
