@@ -45,7 +45,9 @@ Caller.init(
   }
 );
 
-Caller.belongsTo(Group);
+Caller.belongsTo(Group, {
+  foreignKey: 'groupId',
+});
 
 module.exports = {
   Caller,
