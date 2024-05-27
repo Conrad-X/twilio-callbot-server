@@ -1,6 +1,7 @@
 const { DataTypes, Model } = require("sequelize");
 const { database } = require("../configs/database.config");
 const {Group} = require("./group.model");
+// const { FOREIGNKEYS } = require("sequelize/types/query-types");
 
 class Caller extends Model {}
 
@@ -45,7 +46,9 @@ Caller.init(
   }
 );
 
-Caller.belongsTo(Group);
+Caller.belongsTo(Group, {
+  foreignKey: 'groupId',
+});
 
 module.exports = {
   Caller,
